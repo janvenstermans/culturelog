@@ -1,0 +1,14 @@
+<section ng-controller="MediaController" ng-init="find()">
+  <div class="page-header">
+    <h1>Media</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="medium in media" ui-sref="media.view({mediumId: medium._id})" class="list-group-item">
+      <h4 class="list-group-item-heading" ng-bind="medium.name"></h4>
+      <p class="list-group-item-text" ng-bind="medium.specifications"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="media.$resolved && !media.length">
+    No media yet, why don't you <a ui-sref="media.create">create one</a>?
+  </div>
+</section>

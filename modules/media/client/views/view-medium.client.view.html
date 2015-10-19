@@ -1,0 +1,17 @@
+<section ng-controller="MediaController" ng-init="findOne()">
+  <div class="page-header">
+    <h1 ng-bind="media.name"></h1>
+  </div>
+  <div class="pull-right">
+    <a class="btn btn-primary" ui-sref="media.edit({mediumId: medium._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <p class="lead" ng-bind="medium.name"></p>
+  <ul ng-repeat="specification in medium.specifications">
+    <li>{{specification}}</li>
+  </ul>
+</section>

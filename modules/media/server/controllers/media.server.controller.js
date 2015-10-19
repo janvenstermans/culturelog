@@ -34,6 +34,43 @@ exports.read = function (req, res) {
 };
 
 /**
+ * Update a medium
+ */
+exports.update = function (req, res) {
+  var medium = req.medium;
+
+  medium.name = req.body.name;
+  medium.specifications = req.body.specifications;
+
+  medium.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(medium);
+    }
+  });
+};
+
+/**
+ * Delete a medium object.
+ */
+exports.delete = function (req, res) {
+  var medium = req.medium;
+
+  medium.remove(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(medium);
+    }
+  });
+};
+
+/**
  * List of Articles
  */
 exports.list = function (req, res) {
