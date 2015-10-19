@@ -1,0 +1,16 @@
+<section ng-controller="ExperiencesController" ng-init="findOne()">
+  <div class="page-header">
+    <h1 ng-bind="experience.title"></h1>
+  </div>
+  <div class="pull-right">
+    <a class="btn btn-primary" ui-sref="experiences.edit({experienceId: experience._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div>
+    Medium: <span class="lead" ng-bind="experience.medium"></span>
+  </div>
+</section>
