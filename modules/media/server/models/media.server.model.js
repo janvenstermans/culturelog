@@ -8,8 +8,6 @@ var mongoose = require('mongoose'),
 
 /**
  * Medium Schema
-
- @see http://stackoverflow.com/questions/28200502/map-in-mongoose
  */
 var MediumSchema = new Schema({
   name: {
