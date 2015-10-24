@@ -1,8 +1,33 @@
-<section ng-controller="ExperiencesController" ng-init="findOne()">
+<section ng-controller="ExperienceUpdateController" ng-init="findOne()">
   <div class="page-header">
     <h1>Edit Medium</h1>
   </div>
   <div class="col-md-12">
-    TODO
+    <form name="experienceForm" class="form-horizontal" ng-submit="update(experienceForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="medium">Medium</label>
+          <!-- there could be problems with as and track by, see https://docs.angularjs.org/api/ng/directive/ngOptions-->
+          <select name="medium" id="medium" ng-model="experience.medium" required
+                  ng-options="medium as medium.name for medium in media"/>
+          <div ng-messages="experienceForm.medium.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Experience medium is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="title">Title</label>
+          <input name="title" type="text" ng-model="experience.title" id="title" class="form-control" placeholder="Title" required>
+          <div ng-messages="experienceForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Experience title is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
   </div>
 </section>

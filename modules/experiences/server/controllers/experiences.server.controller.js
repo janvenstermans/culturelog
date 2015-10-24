@@ -2,6 +2,9 @@
 
 /**
  * Module dependencies.
+
+ Link with other objects:
+ id => object on call: 'populate': https://alexanderzeitler.com/articles/mongoose-referencing-schema-in-properties-and-arrays/
  */
 var path = require('path'),
   mongoose = require('mongoose'),
@@ -38,8 +41,8 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var experience = req.experience;
 
-  experience.medium = req.body.medium;
   experience.title = req.body.title;
+  experience.medium = req.body.medium;
   experience.date = req.body.date;
   experience.author = req.body.author;
   experience.description = req.body.description;
@@ -80,7 +83,10 @@ exports.delete = function (req, res) {
  * List of Experiences
  */
 exports.list = function (req, res) {
-  Experience.find().exec(function (err, experiences) {
+  Experience
+  .find()
+  .populate('medium')
+  .exec(function (err, experiences) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -102,7 +108,10 @@ exports.experienceByID = function (req, res, next, id) {
     });
   }
 
-  Experience.findById(id).exec(function (err, experience) {
+  Experience
+  .findById(id)
+  .populate('medium')
+  .exec(function (err, experience) {
     if (err) {
       return next(err);
     } else if (!experience) {
