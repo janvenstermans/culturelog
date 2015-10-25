@@ -7,15 +7,15 @@ angular.module('experiences').controller('ExperienceEditController', ['$scope', 
     $scope.authentication = Authentication;
 
     $scope.addSpecEdit = function() {
-          if ($scope.newSpecTemp) {
-           $scope.experience.specifications.push($scope.newSpecTemp);
-           $scope.newSpecTemp = '';
-          }
-         };
+      if ($scope.newSpecTemp) {
+       $scope.experience.specifications.push($scope.newSpecTemp);
+       $scope.newSpecTemp = '';
+      }
+     };
 
-        $scope.removeSpecEdit = function(index) {
-           $scope.experience.specifications.splice(index, 1);
-         };
+    $scope.removeSpecEdit = function(index) {
+       $scope.experience.specifications.splice(index, 1);
+    };
 
     // Update existing Experience
     $scope.update = function (isValid) {
@@ -28,6 +28,28 @@ angular.module('experiences').controller('ExperienceEditController', ['$scope', 
       }
 
       var experience = $scope.experience;
+      if (!experience.specifications) {
+           experience.specifications = getSpecifications();
+      } else {
+        for (var i = 0; i < $scope.specificationsTemp.length; i++) {
+            var specTemp = $scope.specificationsTemp[i];
+            var existingIndex = getExistingIndex(experience.specifications, specTemp.name);
+            for (var j = 0; j < experience.specifications.length; j++) {
+                if (experience.specifications[j].name == specTemp.name) {
+                    existingIndex = j;
+                }
+            }
+            if (specTemp.value && specTemp.value != null) {
+                if (existingIndex != null) {
+                    experience.specifications[existingIndex].value = specTemp.value;
+                } else {
+                    experience.specifications.push(specTemp);
+                }
+            } else if (existingIndex != null) {
+                experience.specifications.splice(existingIndex, 1);
+            }
+        }
+      }
 
       experience.$update(function () {
         $location.path('experiences/' + experience._id);
@@ -54,6 +76,51 @@ angular.module('experiences').controller('ExperienceEditController', ['$scope', 
         });
       });
     };
+
+    $scope.$watch('experience.medium', function(){
+      updateSpecificationsTemp();
+    });
+
+    function updateSpecificationsTemp() {
+        $scope.specificationsTemp = [];
+        if ($scope.experience) {
+            var medium = $scope.experience.medium;
+            if (medium) {
+                for (var i = 0; i < medium.specifications.length; i++) {
+                    var spec = {name:medium.specifications[i]};
+                    var existingIndex = getExistingIndex($scope.experience.specifications, spec.name);
+                    if (existingIndex != null) {
+                        spec.value = $scope.experience.specifications[existingIndex].value;
+                    }
+                    $scope.specificationsTemp.push(spec);
+                }
+            }
+        }
+
+     }
+
+     function getExistingIndex(specArray, specName) {
+         for (var j = 0; j < specArray.length; j++) {
+             if (specArray[j].name == specName) {
+                 return j;
+             }
+         }
+         return null;
+     }
+
+    function getSpecifications() {
+        var specifications = [];
+        for (var i = 0; i < $scope.specificationsTemp.length; i++) {
+             var spec = $scope.specificationsTemp[i];
+             if (spec.value && spec.value != null) {
+              specifications.push(spec);
+             }
+        }
+        if (specifications.length > 0) {
+          return specifications;
+        }
+        return null;
+     }
    }
 
 ]);

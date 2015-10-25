@@ -30,6 +30,7 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
         description: $scope.newExperience.description,
         review: $scope.newExperience.review,
         rating: $scope.newExperience.rating,
+        specifications : getSpecifications()
       });
 
       // Redirect after save
@@ -42,6 +43,10 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
         $scope.error = errorResponse.data.message;
       });
     };
+
+    $scope.$watch('newExperience.medium', function(){
+      updateSpecificationsTemp();
+    });
 
     //DATE methods section start
     $scope.today = function() {
@@ -72,6 +77,31 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
       opened: false
     };
      //DATE methods section end
+
+     function updateSpecificationsTemp() {
+        $scope.specificationsTemp = [];
+        var medium = $scope.newExperience.medium;
+        if (medium) {
+          for (var i = 0; i < medium.specifications.length; i++) {
+              var spec = {name:medium.specifications[i]};
+              $scope.specificationsTemp.push(spec);
+          }
+        }
+     }
+
+     function getSpecifications() {
+        var specifications = [];
+        for (var i = 0; i < $scope.specificationsTemp.length; i++) {
+             var spec = $scope.specificationsTemp[i];
+             if (spec.value && spec.value != null) {
+              specifications.push(spec);
+             }
+        }
+        if (specifications.length > 0) {
+          return specifications;
+        }
+        return null;
+     }
    }
 
 ]);

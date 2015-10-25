@@ -26,7 +26,10 @@ angular.module('core')
       };
 
       $scope.hasNoValues = function(index) {
-        return $scope.values.length == 0;
+        if ($scope.values) {
+          return $scope.values.length == 0;
+        }
+        return true;
       };
 
       $scope.isEditing = function(index) {
