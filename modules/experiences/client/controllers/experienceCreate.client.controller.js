@@ -24,7 +24,12 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
       // Create new Experience object
       var experience = new Experiences({
         medium: $scope.newExperience.medium,
-        title: $scope.newExperience.title
+        title: $scope.newExperience.title,
+        date: $scope.newExperience.date,
+        author: $scope.newExperience.author,
+        description: $scope.newExperience.description,
+        review: $scope.newExperience.review,
+        rating: $scope.newExperience.rating,
       });
 
       // Redirect after save
@@ -38,6 +43,35 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
       });
     };
 
+    //DATE methods section start
+    $scope.today = function() {
+      $scope.newExperience.date = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+      $scope.newExperience.date = null;
+    };
+
+    $scope.open = function($event) {
+      $scope.status.opened = true;
+    };
+
+    $scope.setDate = function(year, month, day) {
+      $scope.newExperience.date = new Date(year, month, day);
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+
+    $scope.format = 'dd/MM/yyyy';
+
+    $scope.status = {
+      opened: false
+    };
+     //DATE methods section end
    }
 
 ]);
