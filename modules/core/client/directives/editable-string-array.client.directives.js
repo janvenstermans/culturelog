@@ -11,6 +11,8 @@ angular.module('core')
         $scope.values = [];
       }
 
+      var editIndex = null;
+
       $scope.addValue = function() {
         if ($scope.newValue) {
           $scope.values.push($scope.newValue);
@@ -20,11 +22,27 @@ angular.module('core')
 
       $scope.removeValue = function(index) {
         $scope.values.splice(index, 1);
+        editIndex = null;
       };
 
       $scope.hasNoValues = function(index) {
         return $scope.values.length == 0;
       };
+
+      $scope.isEditing = function(index) {
+        if (index){
+          return index == editIndex;
+        }
+        return editIndex != null;
+      }
+
+      $scope.toggleEdit = function(index) {
+        if (index == editIndex) {
+           editIndex = null;
+        } else {
+           editIndex = index;
+        }
+      }
     };
 
     return {

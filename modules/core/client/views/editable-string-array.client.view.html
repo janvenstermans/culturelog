@@ -3,20 +3,38 @@
     No values added yet
   </div>
   <div ng-repeat="value in values track by $index">
-    {{value}}
-    <div class="pull-right">
-      <a class="btn btn-primary" ng-click="removeValue($index);">
-        <i class="glyphicon glyphicon-trash"></i>
-      </a>
+    <div ng-switch="isEditing($index)">
+      <div ng-switch-default>
+        {{value}}
+        <div class="pull-right">
+          <a class="btn btn-primary" ng-click="toggleEdit($index)">
+            <i class="glyphicon glyphicon-pencil"></i>
+          </a>
+          <a class="btn btn-danger" ng-click="removeValue($index)">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+        </div>
+        <p class="lead"></p>
+      </div>
+
+      <p class="input-group" ng-switch-when="true">
+        <input type="text" id="value{{$index}}" name="value{{$index}}"  class="form-control lead"
+               ng-model="value" >
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="toggleEdit($index)">
+            <i class="glyphicon glyphicon-ok"></i>
+          </button>
+        </span>
+      </p>
     </div>
-    <p class="lead"></p>
+
   </div>
   <div>
     <p class="input-group">
       <input type="text" id="newValue" name="newValue"  class="form-control"
-             ng-model="newValue" >
+             ng-model="newValue" ng-disabled="isEditing()">
       <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="addValue()">
+        <button type="button" class="btn btn-default" ng-click="addValue()" ng-disabled="isEditing()">
           <i class="glyphicon glyphicon-plus"></i>
         </button>
       </span>
