@@ -42,7 +42,7 @@ var ExperienceSchema = new Schema({
 //  @see http://stackoverflow.com/questions/28200502/map-in-mongoose
   specifications : [{
       name: String,
-      values: Schema.Types.Mixed
+      value: Schema.Types.Mixed
   }]/*,
   location : LocationSchema*/
 });
