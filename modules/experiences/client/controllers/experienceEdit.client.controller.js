@@ -1,7 +1,7 @@
 'use strict';
 
 // Experience Update controller
-angular.module('experiences').controller('ExperienceUpdateController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media',
+angular.module('experiences').controller('ExperienceEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media',
   function ($scope, $stateParams, $location, Authentication, Experiences, Media) {
 
     $scope.authentication = Authentication;
