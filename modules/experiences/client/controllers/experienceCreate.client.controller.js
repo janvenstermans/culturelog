@@ -1,8 +1,8 @@
 'use strict';
 
 // Experience Create controller
-angular.module('experiences').controller('ExperienceCreateController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media',
-  function ($scope, $stateParams, $location, Authentication, Experiences, Media) {
+angular.module('experiences').controller('ExperienceCreateController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media', 'Geocoder',
+  function ($scope, $stateParams, $location, Authentication, Experiences, Media, Geocoder) {
 
     $scope.authentication = Authentication;
 
@@ -10,6 +10,7 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
     $scope.media = Media.query();
 
     $scope.newExperience = {};
+    $scope.location = {};
 
     // Create new Experience
     $scope.create = function (isValid) {
@@ -30,7 +31,8 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
         description: $scope.newExperience.description,
         review: $scope.newExperience.review,
         rating: $scope.newExperience.rating,
-        specifications : getSpecifications()
+        specifications : getSpecifications(),
+        location : $scope.location
       });
 
       // Redirect after save
@@ -47,6 +49,24 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
     $scope.$watch('newExperience.medium', function(){
       updateSpecificationsTemp();
     });
+
+    $scope.updateLocationInfo = function() {
+         if ($scope.location.description && $scope.location.description !== null) {
+            Geocoder.findSingleLocation($scope.location.description).then(function(result){
+                $scope.location.lng = result.lng;
+                $scope.location.lat = result.lat;
+            });
+         }
+      };
+
+    $scope.hasLngLat = function() {
+        if ($scope.location.lng && $scope.location.lng !== null
+            && $scope.location.lat && $scope.location.lat !== null) {
+            return true;
+        }
+        return false;
+    };
+
 
     //DATE methods section start
     $scope.today = function() {
@@ -93,7 +113,7 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
         var specifications = [];
         for (var i = 0; i < $scope.specificationsTemp.length; i++) {
              var spec = $scope.specificationsTemp[i];
-             if (spec.value && spec.value != null) {
+             if (spec.value && spec.value !== null) {
               specifications.push(spec);
              }
         }
