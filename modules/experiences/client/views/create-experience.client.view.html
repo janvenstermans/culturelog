@@ -42,9 +42,6 @@
           <p class="input-group">
             <input type="text" id="locationDescription" name="locationDescription" class="form-control"
                    ng-model="location.description">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="updateLocationInfo()" title="geocode"><i class="glyphicon glyphicon-globe"></i></button>
-          </span>
           </p>
           <div ng-show="hasLngLat()">
             Location: longitude {{location.lng}}, latitude {{location.lat}}
