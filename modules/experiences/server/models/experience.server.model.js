@@ -3,22 +3,8 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
-
-/**
- * Location Schema
- *
- @see http://stackoverflow.com/questions/28200502/map-in-mongoose
- */
-var LocationSchema = new Schema({
-lng: {
-    type: Number,
-    required: 'longitude cannot be blank'
-  },lat: {
-    type: Number,
-    required: 'latitude cannot be blank'
-  }});
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 /**
  * Experience Schema
@@ -43,8 +29,11 @@ var ExperienceSchema = new Schema({
   specifications : [{
       name: String,
       value: Schema.Types.Mixed
-  }]/*,
-  location : LocationSchema*/
+  }],
+  location : {
+      type: Schema.ObjectId,
+      ref: 'Location',
+  }
 });
 
 mongoose.model('Experience', ExperienceSchema);

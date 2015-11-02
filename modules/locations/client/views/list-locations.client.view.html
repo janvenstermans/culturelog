@@ -1,0 +1,16 @@
+<section ng-controller="LocationsController" ng-init="find()">
+  <div class="page-header">
+    <h1>Locations</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="location in locations" ui-sref="locations.view({locationId: location._id})" class="list-group-item">
+      <span class="btn pull-right" title="Custom location" ng-show="location.user">
+        <i class="glyphicon glyphicon-star-empty"></i>
+      </span>
+      <h4 class="list-group-item-heading lead" ng-bind="location.description"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="locations.$resolved && !locations.length">
+    No locations yet, why don't you <a ui-sref="locations.create">create one</a>?
+  </div>
+</section>

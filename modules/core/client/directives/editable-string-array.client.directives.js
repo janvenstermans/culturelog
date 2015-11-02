@@ -27,25 +27,28 @@ angular.module('core')
 
       $scope.hasNoValues = function(index) {
         if ($scope.values) {
-          return $scope.values.length == 0;
+          return $scope.values.length === 0;
         }
         return true;
       };
 
+      /**
+      * expect index to be an integer
+      */
       $scope.isEditing = function(index) {
         if (index){
-          return index == editIndex;
+          return index === editIndex;
         }
-        return editIndex != null;
-      }
+        return editIndex !== null;
+      };
 
       $scope.toggleEdit = function(index) {
-        if (index == editIndex) {
+        if (index === editIndex) {
            editIndex = null;
         } else {
            editIndex = index;
         }
-      }
+      };
     };
 
     return {

@@ -40,12 +40,12 @@ angular.module('experiences').controller('ExperienceEditController', ['$scope', 
                 }
             }
             if (specTemp.value && specTemp.value != null) {
-                if (existingIndex != null) {
+                if (existingIndex !== null) {
                     experience.specifications[existingIndex].value = specTemp.value;
                 } else {
                     experience.specifications.push(specTemp);
                 }
-            } else if (existingIndex != null) {
+            } else if (existingIndex !== null) {
                 experience.specifications.splice(existingIndex, 1);
             }
         }
@@ -89,7 +89,7 @@ angular.module('experiences').controller('ExperienceEditController', ['$scope', 
                 for (var i = 0; i < medium.specifications.length; i++) {
                     var spec = {name:medium.specifications[i]};
                     var existingIndex = getExistingIndex($scope.experience.specifications, spec.name);
-                    if (existingIndex != null) {
+                    if (existingIndex !== null) {
                         spec.value = $scope.experience.specifications[existingIndex].value;
                     }
                     $scope.specificationsTemp.push(spec);
@@ -99,6 +99,9 @@ angular.module('experiences').controller('ExperienceEditController', ['$scope', 
 
      }
 
+     /**
+     * returns an index integer or null;
+     */
      function getExistingIndex(specArray, specName) {
          for (var j = 0; j < specArray.length; j++) {
              if (specArray[j].name == specName) {

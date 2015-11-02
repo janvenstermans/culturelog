@@ -37,6 +37,17 @@
           </p>
         </fieldset>
 
+        <fieldset class="form-group">
+          <label for="locationDescription">Location</label>
+          <p class="input-group">
+            <input type="text" id="locationDescription" name="locationDescription" class="form-control"
+                   ng-model="location.description">
+          </p>
+          <div ng-show="hasLngLat()">
+            Location: longitude {{location.lng}}, latitude {{location.lat}}
+          </div>
+        </fieldset>
+
         <div class="form-group">
           <label>Author(s)</label>
           <editable-string-array id="author" name="author"
