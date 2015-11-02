@@ -18,7 +18,11 @@ var LocationSchema = new Schema({
     type: Number
   },lat: {
     type: Number
-  }
+  },
+  user: {
+      type: Schema.ObjectId,
+      ref: 'User'
+    }
 });
 
 mongoose.model('Location', LocationSchema);
