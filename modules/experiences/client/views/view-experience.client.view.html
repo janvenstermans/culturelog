@@ -37,10 +37,10 @@
   <div class="col-md-12" ng-show="experience.location">
     <label for="location">Location</label>
     <div>
+      <button type="button" class="btn btn-default btn-sm" ng-click="openMap()"  ng-show="hasLngLat(experience.location)">
+        <i class="glyphicon glyphicon-map-marker"></i>
+      </button>
       <span id="location" ng-bind="experience.location.description"></span>
-    </div>
-    <div ng-show="hasLngLat(experience.location)">
-      <leaflet lf-center="center" height="480px" markers="markers" defaults="defaults"></leaflet>
     </div>
   </div>
 
