@@ -8,7 +8,6 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Location = mongoose.model('Location'),
   Experience = mongoose.model('Experience'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
@@ -16,28 +15,17 @@ var path = require('path'),
  * Create an experience
  */
 exports.create = function (req, res) {
-  console.log("create location");
-  var location = new Location(req.body.location);
-  location.save(function (err) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        req.body.location = location;
-        var experience = new Experience(req.body);
+  var experience = new Experience(req.body);
 
-          experience.save(function (err) {
-            if (err) {
-              return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-              });
-            } else {
-              res.json(experience);
-            }
-          });
-      }
-    });
+  experience.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(experience);
+    }
+  });
 
 };
 
@@ -62,8 +50,7 @@ exports.update = function (req, res) {
   experience.review = req.body.review;
   experience.rating = req.body.rating;
   experience.specifications = req.body.specifications;
-  // update the location object
-  updateLocation(req.body.location, res);
+  experience.location = req.body.location;
 
   experience.save(function (err) {
     if (err) {
@@ -75,16 +62,6 @@ exports.update = function (req, res) {
     }
   });
 };
-
-function updateLocation(location, res) {
-  location.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    }
-  });
-}
 
 /**
  * Delete a experience object.

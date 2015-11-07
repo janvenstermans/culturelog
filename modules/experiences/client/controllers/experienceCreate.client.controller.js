@@ -1,16 +1,16 @@
 'use strict';
 
 // Experience Create controller
-angular.module('experiences').controller('ExperienceCreateController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media', 'Geocoder',
-  function ($scope, $stateParams, $location, Authentication, Experiences, Media, Geocoder) {
+angular.module('experiences').controller('ExperienceCreateController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media', 'Locations',
+  function ($scope, $stateParams, $location, Authentication, Experiences, Media, Locations) {
 
     $scope.authentication = Authentication;
 
-    // find all media
+    // find all objects necessary
     $scope.media = Media.query();
+    $scope.locations = Locations.query();
 
     $scope.newExperience = {};
-    $scope.location = {};
 
     // Create new Experience
     $scope.create = function (isValid) {
@@ -32,7 +32,7 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
         review: $scope.newExperience.review,
         rating: $scope.newExperience.rating,
         specifications : getSpecifications(),
-        location : $scope.location
+        location : $scope.newExperience.location
       });
 
       // Redirect after save
@@ -49,24 +49,6 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
     $scope.$watch('newExperience.medium', function(){
       updateSpecificationsTemp();
     });
-
-    $scope.updateLocationInfo = function() {
-         if ($scope.location.description && $scope.location.description !== null) {
-            Geocoder.findSingleLocation($scope.location.description).then(function(result){
-                $scope.location.lng = result.lng;
-                $scope.location.lat = result.lat;
-            });
-         }
-      };
-
-    $scope.hasLngLat = function() {
-        if ($scope.location.lng && $scope.location.lng !== null &&
-                $scope.location.lat && $scope.location.lat !== null) {
-            return true;
-        }
-        return false;
-    };
-
 
     //DATE methods section start
     $scope.today = function() {

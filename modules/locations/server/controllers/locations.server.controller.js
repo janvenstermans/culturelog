@@ -30,7 +30,6 @@ exports.create = function (req, res) {
  * Show the current location
  */
 exports.read = function (req, res) {
-console.log("i am at read");
   var location = req.location;
   // add some security
   if (location.user) {

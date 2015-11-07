@@ -38,14 +38,10 @@
         </fieldset>
 
         <fieldset class="form-group">
-          <label for="locationDescription">Location</label>
-          <p class="input-group">
-            <input type="text" id="locationDescription" name="locationDescription" class="form-control"
-                   ng-model="location.description">
-          </p>
-          <div ng-show="hasLngLat()">
-            Location: longitude {{location.lng}}, latitude {{location.lat}}
-          </div>
+          <label for="location">Location</label>
+          <select id="location" name="location" class="form-control"
+                  ng-model="newExperience.location"
+                  ng-options="location as location.description for location in locations"></select>
         </fieldset>
 
         <div class="form-group">
