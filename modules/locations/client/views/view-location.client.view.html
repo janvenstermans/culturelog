@@ -14,7 +14,7 @@
   <p ng-show="location.user">Custom location.</p>
   <p ng-show="!location.user">General location.</p>
   <div ng-show="hasLngLat(location)">
-    Location: longitude {{location.lng}}, latitude {{location.lat}}
+    <leaflet lf-center="center" height="480px" markers="markers" defaults="defaults"></leaflet>
   </div>
   <!-- TODO: add a map with the position-->
 </section>

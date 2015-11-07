@@ -42,7 +42,7 @@ module.exports = {
   linkedin: {
     clientID: process.env.LINKEDIN_ID || 'APP_ID',
     clientSecret: process.env.LINKEDIN_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/linkedin/callback'
+    callbackURL: '/api/gruauth/linkedin/callback'
   },
   github: {
     clientID: process.env.GITHUB_ID || 'APP_ID',
