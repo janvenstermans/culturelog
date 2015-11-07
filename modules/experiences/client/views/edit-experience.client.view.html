@@ -38,6 +38,13 @@
           </p>
         </fieldset>
 
+        <fieldset class="form-group">
+          <label for="location">Location</label>
+          <select id="location" name="location" class="form-control"
+                  ng-model="experience.location"
+                  ng-options="location as location.description for location in locations"></select>
+        </fieldset>
+
         <div class="form-group">
           <label>Author(s)</label>
           <editable-string-array id="author" name="author"

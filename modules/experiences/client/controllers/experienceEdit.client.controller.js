@@ -1,8 +1,9 @@
 'use strict';
 
 // Experience Update controller
-angular.module('experiences').controller('ExperienceEditController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media',
-  function ($scope, $stateParams, $location, Authentication, Experiences, Media) {
+angular.module('experiences').controller('ExperienceEditController',
+    ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media', 'Locations',
+  function ($scope, $stateParams, $location, Authentication, Experiences, Media, Locations) {
 
     $scope.authentication = Authentication;
 
@@ -73,6 +74,18 @@ angular.module('experiences').controller('ExperienceEditController', ['$scope', 
                 }
             }
             $scope.media = media;
+        });
+        Locations.query({},function(locations) {
+            // for input["select"] of location: use the exact given location object
+            var location = $scope.experience.location;
+            if (location && location._id) {
+                for (var i = 0; i < locations.length; i++) {
+                    if (locations[i]._id == location._id) {
+                        locations[i] = location;
+                    }
+                }
+            }
+            $scope.locations = locations;
         });
       });
     };
