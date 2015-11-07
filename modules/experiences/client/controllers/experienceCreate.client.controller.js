@@ -60,8 +60,8 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
       };
 
     $scope.hasLngLat = function() {
-        if ($scope.location.lng && $scope.location.lng !== null
-            && $scope.location.lat && $scope.location.lat !== null) {
+        if ($scope.location.lng && $scope.location.lng !== null &&
+                $scope.location.lat && $scope.location.lat !== null) {
             return true;
         }
         return false;
