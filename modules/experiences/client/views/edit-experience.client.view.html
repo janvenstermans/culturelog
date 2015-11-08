@@ -24,17 +24,20 @@
           </div>
         </fieldset>
 
-        <fieldset class="form-group">
+        <fieldset class="form-group" show-errors>
           <label for="date">Date</label>
           <p class="input-group">
             <input type="text" id="date" name="date" class="form-control"
                    datepicker-popup="{{format}}"
                    ng-model="experience.date" is-open="status.opened"
-                   datepicker-options="datePickerOptions" close-text="Close" disabled/>
+                   datepicker-options="datePickerOptions" close-text="Close" disabled required/>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
           </p>
+          <div ng-messages="experienceForm.date.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Experience date is required.</p>
+          </div>
         </fieldset>
 
         <fieldset class="form-group">

@@ -20,7 +20,10 @@ var ExperienceSchema = new Schema({
     type: String,
     required: 'title cannot be blank'
   },
-  date : Date,
+  date : {
+     type: Date,
+     required: 'date required'
+   },
   author: [String],
   description: String,
   review: String,
