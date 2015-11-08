@@ -1,50 +1,16 @@
 'use strict';
 
 // Experience controller
-angular.module('experiences').controller('ExperienceViewController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media',
-  function ($scope, $stateParams, $location, Authentication, Experiences, Media) {
+angular.module('experiences').controller('ExperienceViewController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media', '$modal',
+  function ($scope, $stateParams, $location, Authentication, Experiences, Media, $modal) {
     $scope.authentication = Authentication;
 
-// MAP SECTION START
-
-    $scope.defaults = {
-        scrollWheelZoom: false
-    };
-
-    // map center
-    $scope.center = {};
-
-    // one marker only
-    $scope.markers = {
-        marker : {
-            lat: 0,
-            lng: 0,
-            focus: true,
-            draggable: false
-        }
-    };
-
-    $scope.hasLngLat = function(location) {
+     $scope.hasLngLat = function(location) {
         if (location && location.lng && location.lng !== null && location.lat && location.lat !== null) {
             return true;
         }
         return false;
     };
-
-    function updateMapCenter(location) {
-      $scope.center = {
-        lat: location.lat,
-        lng: location.lng,
-        zoom: 15
-      };
-    }
-
-    function updateMarkerPosition(location) {
-      $scope.markers.marker.lat = location.lat;
-      $scope.markers.marker.lng = location.lng;
-    }
-
-    // MAP SECTION END
 
     // Remove existing Experience
     $scope.remove = function (experience) {
@@ -63,16 +29,26 @@ angular.module('experiences').controller('ExperienceViewController', ['$scope', 
       }
     };
 
+    $scope.openMap = function () {
+
+        var modalInstance = $modal.open({
+          animation: true,
+          templateUrl: 'modules/locations/client/views/locationMap.client.view.html',
+          controller: 'LocationMapController',
+          size: 'lg',
+          resolve: {
+            editable: false,
+            location: $scope.experience.location
+          }
+        });
+      };
+
     // Find existing Experience
     $scope.findOne = function () {
       Experiences.get({
         experienceId: $stateParams.experienceId
       }).$promise.then(function(result) {
         $scope.experience = result;
-        if (result.location) {
-          updateMapCenter(result.location);
-          updateMarkerPosition(result.location);
-        }
       });
     };
   }
