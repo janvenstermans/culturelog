@@ -30,7 +30,7 @@
   <div class="col-md-12" ng-show="experience.date">
     <label for="date">Date</label>
     <div>
-      <span id="date" ng-bind="experience.date"></span>
+      <span id="date" ng-bind="experience.date | date : 'EEEE d MMMM yyyy'"></span>
     </div>
   </div>
 

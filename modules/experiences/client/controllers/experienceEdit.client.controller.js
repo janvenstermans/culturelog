@@ -94,6 +94,35 @@ angular.module('experiences').controller('ExperienceEditController',
       updateSpecificationsTemp();
     });
 
+     //DATE methods section start
+    $scope.today = function() {
+      $scope.experience.date = new Date();
+    };
+
+    $scope.clear = function () {
+      $scope.experience.date = null;
+    };
+
+    $scope.open = function($event) {
+      $scope.status.opened = true;
+    };
+
+    $scope.setDate = function(year, month, day) {
+      $scope.experience.date = new Date(year, month, day);
+    };
+
+    $scope.datePickerOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+
+    $scope.format = 'EEEE d MMMM yyyy';
+
+    $scope.status = {
+      opened: false
+    };
+     //DATE methods section end
+
     function updateSpecificationsTemp() {
         $scope.specificationsTemp = [];
         if ($scope.experience) {

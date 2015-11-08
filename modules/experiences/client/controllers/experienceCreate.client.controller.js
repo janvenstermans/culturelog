@@ -68,12 +68,12 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
       $scope.newExperience.date = new Date(year, month, day);
     };
 
-    $scope.dateOptions = {
+    $scope.datePickerOptions = {
       formatYear: 'yy',
       startingDay: 1
     };
 
-    $scope.format = 'dd/MM/yyyy';
+    $scope.format = 'EEEE d MMMM yyyy';
 
     $scope.status = {
       opened: false

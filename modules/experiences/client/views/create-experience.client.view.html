@@ -25,12 +25,11 @@
 
         <fieldset class="form-group">
           <label for="date">Date</label>
-          <!-- TODO : width of the datepicker-->
           <p class="input-group">
-            <input type="date" id="date" name="date" class="form-control"
-                   uib-datepicker-popup="{{format}}"
+            <input type="text" id="date" name="date" class="form-control"
+                   datepicker-popup="{{format}}"
                    ng-model="newExperience.date" is-open="status.opened"
-                  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" />
+                  datepicker-options="datePickerOptions" close-text="Close" disabled/>
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
