@@ -14,15 +14,18 @@ var LocationSchema = new Schema({
     type : String,
     required: 'location description required'
   },
+  address : {
+    type : String
+  },
   lng: {
     type: Number
   },lat: {
     type: Number
   },
   user: {
-      type: Schema.ObjectId,
-      ref: 'User'
-    }
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
 });
 
 mongoose.model('Location', LocationSchema);

@@ -13,7 +13,9 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var medium = new Medium(req.body);
-  medium.user = req.user.id;
+  if (req.user && req.user.roles.indexOf('user') > -1) {
+    medium.user = req.user.id;
+  }
 
   medium.save(function (err) {
     if (err) {
@@ -21,7 +23,6 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-    console.log(medium);
       res.json(medium);
     }
   });
@@ -48,7 +49,6 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-    console.log(medium);
       res.json(medium);
     }
   });
@@ -65,7 +65,6 @@ exports.delete = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-    console.log(medium);
       res.json(medium);
     }
   });

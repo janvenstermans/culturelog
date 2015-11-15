@@ -13,7 +13,9 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var location = new Location(req.body);
-  location.user = req.user.id;
+  if (req.user && req.user.roles.indexOf('user') > -1) {
+      location.user = req.user.id;
+  }
 
   location.save(function (err) {
     if (err) {
@@ -39,6 +41,7 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var location = req.location;
   location.description = req.body.description;
+  location.address = req.body.address;
   location.lng = req.body.lng;
   location.lat = req.body.lat;
 

@@ -1,6 +1,7 @@
 <section ng-controller="MediaController" ng-init="find()">
   <div class="page-header">
-    <h1>Media</h1>
+    <h1 ng-show="onlyGeneral">General Media</h1>
+    <h1 ng-show="!onlyGeneral">Media</h1>
   </div>
   <div class="list-group">
     <a ng-repeat="medium in media" ui-sref="media.view({mediumId: medium._id})" class="list-group-item">

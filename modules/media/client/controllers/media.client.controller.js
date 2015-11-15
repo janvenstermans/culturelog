@@ -5,6 +5,11 @@ angular.module('media').controller('MediaController', ['$scope', '$stateParams',
   function ($scope, $stateParams, $location, Authentication, Media) {
     $scope.authentication = Authentication;
 
+    var isAdmin = $scope.authentication.user.roles.indexOf('admin') > -1;
+    var isUser = $scope.authentication.user.roles.indexOf('user') > -1;
+
+    $scope.onlyGeneral = isAdmin;
+
     // CREATE SECTION START
 
     //create parameters
@@ -108,9 +113,27 @@ angular.module('media').controller('MediaController', ['$scope', '$stateParams',
 
     // Find existing Medium
     $scope.findOne = function () {
-      $scope.medium = Media.get({
+      Media.get({
         mediumId: $stateParams.mediumId
+      }).$promise.then(function(medium) {
+        $scope.medium = medium;
+        $scope.isGeneral = isGeneral($scope.medium);
+        $scope.canEdit = canEdit($scope.medium);
       });
     };
+
+    function isGeneral(medium) {
+      if (medium.user) {
+        return false;
+      }
+      return true;
+    }
+
+    function canEdit(medium) {
+      if (isGeneral(medium)) {
+        return isAdmin;
+      }
+      return isUser;
+    }
   }
 ]);
