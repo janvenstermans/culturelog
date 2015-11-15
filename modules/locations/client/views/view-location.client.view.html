@@ -2,19 +2,22 @@
   <div class="page-header">
     <h1 ng-bind="location.description"></h1>
   </div>
-  <div class="pull-right" ng-show="location.user">
-    <a class="btn btn-primary" ui-sref="locations.edit({locationId: location._id})">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="remove();">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
+  <div ng-show="location.user">
+    <div class="pull-right" >
+      <a class="btn btn-primary" ui-sref="locations.edit({locationId: location._id})">
+        <i class="glyphicon glyphicon-edit"></i>
+      </a>
+      <a class="btn btn-primary" ng-click="remove();">
+        <i class="glyphicon glyphicon-trash"></i>
+      </a>
+    </div>
+    <p class="lead"></p>
+    <p>personal location</p>
   </div>
-  <p class="lead" ng-bind="location.description"></p>
-  <p ng-show="location.user">Custom location.</p>
-  <p ng-show="!location.user">General location.</p>
+  <div ng-show="!location.user">
+    <p>general location</p>
+  </div>
   <div ng-show="hasLngLat(location)">
     <leaflet lf-center="center" height="480px" markers="markers" defaults="defaults"></leaflet>
   </div>
-  <!-- TODO: add a map with the position-->
 </section>

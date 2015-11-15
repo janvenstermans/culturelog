@@ -4,6 +4,9 @@
   </div>
   <div class="list-group">
     <a ng-repeat="medium in media" ui-sref="media.view({mediumId: medium._id})" class="list-group-item">
+      <span class="btn pull-right" title="personal medium" ng-show="medium.user">
+        <i class="glyphicon glyphicon-star-empty"></i>
+      </span>
       <h4 class="list-group-item-heading" ng-bind="medium.name"></h4>
       <p class="list-group-item-text" ng-bind="medium.specifications"></p>
     </a>
