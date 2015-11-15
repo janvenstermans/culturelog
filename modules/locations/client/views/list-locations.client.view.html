@@ -4,7 +4,7 @@
   </div>
   <div class="list-group">
     <a ng-repeat="location in locations" ui-sref="locations.view({locationId: location._id})" class="list-group-item">
-      <span class="btn pull-right" title="Custom location" ng-show="location.user">
+      <span class="btn pull-right" title="personal location" ng-show="location.user">
         <i class="glyphicon glyphicon-star-empty"></i>
       </span>
       <h4 class="list-group-item-heading lead" ng-bind="location.description"></h4>

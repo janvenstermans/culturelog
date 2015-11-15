@@ -13,7 +13,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var location = new Location(req.body);
-  location.user = req.user;
+  location.user = req.user.id;
 
   location.save(function (err) {
     if (err) {
@@ -30,8 +30,7 @@ exports.create = function (req, res) {
  * Show the current location
  */
 exports.read = function (req, res) {
-  var location = req.location;
-  res.json(location);
+  res.json(req.location);
 };
 
 /**
@@ -83,7 +82,7 @@ exports.list = function (req, res) {
   }
   Location.find()
   .where('user').in(allowedUsersArray)
-  .populate('user', 'displayName')
+  .populate('user', 'displayName username')
   .exec(function (err, locations) {
     if (err) {
       return res.status(400).send({
@@ -108,7 +107,7 @@ exports.locationByID = function (req, res, next, id) {
   }
 
   Location.findById(id)
-  .populate('user', 'displayName')
+  .populate('user', 'displayName username')
   .exec(function (err, location) {
     if (err) {
       return next(err);
