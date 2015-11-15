@@ -8,7 +8,7 @@ angular.module('experiences').run(['Menus',
       title: 'Experiences',
       state: 'experiences',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['user']
     });
 
     // Add the dropdown list item
@@ -21,7 +21,7 @@ angular.module('experiences').run(['Menus',
     Menus.addSubMenuItem('topbar', 'experiences', {
       title: 'Create Experience',
       state: 'experiences.create',
-      roles: ['*']
+      roles: ['user']
     });
   }
 ]);

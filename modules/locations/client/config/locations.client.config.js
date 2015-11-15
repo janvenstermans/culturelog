@@ -8,7 +8,7 @@ angular.module('locations').run(['Menus',
       title: 'Locations',
       state: 'locations',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin', 'user']
     });
 
     // Add the dropdown list item

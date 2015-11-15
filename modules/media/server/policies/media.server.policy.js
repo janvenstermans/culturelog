@@ -30,15 +30,6 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/media/:mediumId',
       permissions: ['get', 'put', 'delete']
     }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/media',
-      permissions: ['get']
-    }, {
-      resources: '/api/media/:mediumId',
-      permissions: ['get']
-    }]
   }]);
 };
 

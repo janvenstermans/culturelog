@@ -8,7 +8,7 @@ angular.module('media').run(['Menus',
       title: 'Media',
       state: 'media',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin', 'user']
     });
 
     // Add the dropdown list item
@@ -21,7 +21,7 @@ angular.module('media').run(['Menus',
     Menus.addSubMenuItem('topbar', 'media', {
       title: 'Create Medium',
       state: 'media.create',
-      roles: ['*']
+      roles: ['admin', 'user']
     });
   }
 ]);

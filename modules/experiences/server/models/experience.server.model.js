@@ -36,7 +36,12 @@ var ExperienceSchema = new Schema({
   location : {
       type: Schema.ObjectId,
       ref: 'Location',
-  }
+  },
+    user: {
+        type: Schema.ObjectId,
+        ref: 'User',
+        required: 'user required'
+    }
 });
 
 mongoose.model('Experience', ExperienceSchema);

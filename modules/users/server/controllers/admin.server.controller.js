@@ -8,6 +8,30 @@ var path = require('path'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
+
+  // add admin user
+  User.where('color', 'black').count(function (err, count) {
+    if (count < 1) {
+      // add admin user
+      var user = new User();
+      user.firstName = "Administrator";
+      user.lastName = "Administrator";
+      user.displayName = "Administrator";
+      user.email = "admin@email.com";
+      user.username = "admin";
+      user.password = "admin123";
+      user.provider = "local";
+      user.roles = ['admin'];
+      user.save(function (err) {
+        if (err) {
+          console.log("failed to add admin user");
+        } else {
+          console.log("added default admin user");
+        }
+      });
+    }
+  });
+
 /**
  * Show the current user
  */

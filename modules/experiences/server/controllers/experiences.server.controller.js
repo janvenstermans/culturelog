@@ -16,6 +16,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var experience = new Experience(req.body);
+  experience.user = req.user.id;
 
   experience.save(function (err) {
     if (err) {
@@ -88,6 +89,7 @@ exports.list = function (req, res) {
   .find()
   .populate('medium')
   .populate('location')
+  .populate('user', 'displayName username')
   .exec(function (err, experiences) {
     if (err) {
       return res.status(400).send({
@@ -114,6 +116,7 @@ exports.experienceByID = function (req, res, next, id) {
   .findById(id)
   .populate('medium')
   .populate('location')
+  .populate('user', 'displayName username')
   .exec(function (err, experience) {
     if (err) {
       return next(err);
