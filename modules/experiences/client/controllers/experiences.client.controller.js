@@ -9,5 +9,28 @@ angular.module('experiences').controller('ExperiencesController', ['$scope', '$s
     $scope.find = function () {
       $scope.experiences = Experiences.query();
     };
+
+    // sorting
+    $scope.sort = {
+        sortingKey : 'date',
+        reverse : true
+    };
+
+    $scope.sortBy = function(key) {
+      if ($scope.sort.sortingKey != key) {
+        $scope.sort.sortingKey = key;
+        $scope.sort.reverse = false;
+      } else {
+        $scope.sort.reverse = !$scope.sort.reverse;
+      }
+    };
+
+    $scope.gap = 5;
+
+    $scope.filteredItems = [];
+    $scope.groupedItems = [];
+    $scope.itemsPerPage = 5;
+    $scope.pagedItems = [];
+    $scope.currentPage = 0;
   }
 ]);

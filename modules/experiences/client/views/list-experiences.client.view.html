@@ -2,10 +2,57 @@
   <div class="page-header">
     <h1>Experiences</h1>
   </div>
-  <div class="list-group">
-    <a ng-repeat="experience in experiences" ui-sref="experiences.view({experienceId: experience._id})" class="list-group-item">
-      <h4 class="list-group-item-heading">{{experience.date | date : 'dd/MM/yyyy'}} | {{experience.medium.name}} | {{experience.title}}</h4>
-    </a>
+  <div>
+    <!-- table with sorting and pagination code from:
+    * http://stackoverflow.com/questions/19409492/how-to-achieve-pagination-table-layout-with-angular-js
+    * http://code.ciphertrick.com/2015/06/01/search-sort-and-pagination-ngrepeat-angularjs/-->
+    <table class="table table-striped table-condensed table-hover">
+      <thead>
+        <tr>
+          <th ng-click="sortBy('date')">Date
+            <span class="glyphicon sort-icon" ng-show="sort.sortingKey=='date'"
+                  ng-class="{'glyphicon-chevron-up':sort.reverse,'glyphicon-chevron-down':!sort.reverse}"></span>
+          </th>
+          <th ng-click="sortBy('medium.name')">Medium
+            <span class="glyphicon sort-icon" ng-show="sort.sortingKey=='medium.name'"
+                  ng-class="{'glyphicon-chevron-up':sort.reverse,'glyphicon-chevron-down':!sort.reverse}"></span>
+          </th>
+          <th ng-click="sortBy('title')">Title
+            <span class="glyphicon sort-icon" ng-show="sort.sortingKey=='title'"
+                  ng-class="{'glyphicon-chevron-up':sort.reverse,'glyphicon-chevron-down':!sort.reverse}"></span>
+          </th>
+        </tr>
+      </thead>
+      <!--<tfoot>
+      <td colspan="6">
+        <div class="pagination pull-right">
+          <ul>
+            <li ng-class="{disabled: currentPage == 0}">
+              <a href ng-click="prevPage()">« Prev</a>
+            </li>
+
+            <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+                ng-class="{active: n == currentPage}"
+                ng-click="setPage()">
+              <a href ng-bind="n + 1">1</a>
+            </li>
+
+            <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+              <a href ng-click="nextPage()">Next »</a>
+            </li>
+          </ul>
+        </div>
+      </td>
+      </tfoot>-->
+      <tbody>
+        <tr ng-repeat="experience in experiences | orderBy:sort.sortingKey:sort.reverse"
+            ui-sref="experiences.view({experienceId: experience._id})">
+          <td>{{experience.date | date : 'dd/MM/yyyy'}}</td>
+          <td>{{experience.medium.name}}</td>
+          <td>{{experience.title}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="experiences.$resolved && !experiences.length">
     No experiences yet, why don't you <a ui-sref="experiences.create">create one</a>?
