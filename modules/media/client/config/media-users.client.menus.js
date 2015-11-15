@@ -1,6 +1,6 @@
 'use strict';
 
-// Configuring the Media module
+// Configuring the Media module for users
 angular.module('media').run(['Menus',
   function (Menus) {
     // Add the media dropdown item
@@ -8,7 +8,7 @@ angular.module('media').run(['Menus',
       title: 'Media',
       state: 'media',
       type: 'dropdown',
-      roles: ['admin', 'user']
+      roles: ['user']
     });
 
     // Add the dropdown list item
@@ -21,7 +21,7 @@ angular.module('media').run(['Menus',
     Menus.addSubMenuItem('topbar', 'media', {
       title: 'Create Medium',
       state: 'media.create',
-      roles: ['admin', 'user']
+      roles: ['user']
     });
   }
 ]);

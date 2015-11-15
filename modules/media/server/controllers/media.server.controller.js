@@ -13,7 +13,10 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var medium = new Medium(req.body);
-  medium.user = req.user.id;
+  console.log(req.user.roles);
+  if (req.user && req.user.roles.indexOf('user') > -1) {
+    medium.user = req.user.id;
+  }
 
   medium.save(function (err) {
     if (err) {

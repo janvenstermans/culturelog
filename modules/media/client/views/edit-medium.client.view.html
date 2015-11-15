@@ -1,6 +1,7 @@
 <section ng-controller="MediaController" ng-init="findOne()">
   <div class="page-header">
-    <h1>Edit Medium</h1>
+    <h1 ng-show="onlyGeneral">Edit General Medium</h1>
+    <h1 ng-show="!onlyGeneral">Edit Personal Medium</h1>
   </div>
   <div class="col-md-12">
     <form name="mediumForm" ng-submit="update(mediumForm.$valid)" novalidate>
@@ -14,13 +15,13 @@
         </fieldset>
 
         <div class="form-group">
-          <label>Specification(s)</label>
+          <label>Specification key(s)</label>
           <editable-string-array id="author" name="author"
                                  ng-model="medium.specifications"></editable-string-array>
         </div>
 
         <div class="form-group">
-          <input type="submit" value="Update" class="btn btn-default">
+          <input type="submit" value="Update Medium" class="btn btn-default">
         </div>
         <div ng-show="error" class="text-danger">
           <strong ng-bind="error"></strong>

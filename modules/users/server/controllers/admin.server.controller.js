@@ -10,7 +10,7 @@ var path = require('path'),
 
 
   // add admin user
-  User.where('color', 'black').count(function (err, count) {
+  User.where({roles:"admin"}).count(function (err, count) {
     if (count < 1) {
       // add admin user
       var user = new User();

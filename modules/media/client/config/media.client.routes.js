@@ -18,7 +18,7 @@ angular.module('media').config(['$stateProvider',
         url: '/create',
         templateUrl: 'modules/media/client/views/create-medium.client.view.html',
         data: {
-//          roles: ['*']
+          roles: ['user', 'admin']
         }
       })
       .state('media.view', {
@@ -29,7 +29,7 @@ angular.module('media').config(['$stateProvider',
         url: '/:mediumId/edit',
         templateUrl: 'modules/media/client/views/edit-medium.client.view.html',
         data: {
-//          roles: ['*']
+          roles: ['user', 'admin']
         }
       });
   }

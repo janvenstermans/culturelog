@@ -1,27 +1,39 @@
 <section ng-controller="MediaController" ng-init="findOne()">
   <div class="page-header">
-    <h1 ng-bind="medium.name"></h1>
+    <h1>Medium details</h1>
   </div>
-  <div  ng-show="medium.user">
-    <div class="pull-right">
-      <a class="btn btn-primary" ui-sref="media.edit({mediumId: medium._id})">
-        <i class="glyphicon glyphicon-edit"></i>
-      </a>
-      <a class="btn btn-primary" ng-click="remove();">
-        <i class="glyphicon glyphicon-trash"></i>
-      </a>
+  <div class="col-md-12">
+    <div ng-show="canEdit" class="row">
+      <div class="pull-right">
+        <a class="btn btn-primary" ui-sref="media.edit({mediumId: medium._id})">
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" ng-click="remove();">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
+      <p class="lead"></p>
     </div>
-    <p class="lead"></p>
-    <p>Personal medium</p>
-  </div>
-  <div  ng-show="!medium.user">
-    <p>General medium</p>
-  </div>
-  <div ng-show="medium.specifications && medium.specifications.length > 0">
-    <p>Specification keys:</p>
-    <ul ng-repeat="specification in medium.specifications">
-      <li>{{specification}}</li>
-    </ul>
-  </div>
+    <div class="row">
+      <label for="mediumName">Name</label>
+      <div id="mediumName"><span ng-bind="medium.name" ></span></div>
+    </div>
 
+    <div class="row">
+      <label for="mediumScope">Scope</label>
+      <div id="mediumScope">
+        <span ng-show="isGeneral">General medium</span>
+        <span ng-show="!isGeneral">Personal medium</span>
+      </div>
+    </div>
+
+    <div class="row" ng-show="medium.specifications && medium.specifications.length > 0">
+      <label for="mediumSpecifications">Specification keys</label>
+      <div id="mediumSpecifications">
+        <ul ng-repeat="specification in medium.specifications">
+          <li>{{specification}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
