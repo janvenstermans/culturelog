@@ -13,7 +13,7 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var medium = new Medium(req.body);
-//  medium.user = req.user;
+  medium.user = req.user.id;
 
   medium.save(function (err) {
     if (err) {
@@ -21,6 +21,7 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+    console.log(medium);
       res.json(medium);
     }
   });
@@ -38,7 +39,6 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var medium = req.medium;
-
   medium.name = req.body.name;
   medium.specifications = req.body.specifications;
 
@@ -48,6 +48,7 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+    console.log(medium);
       res.json(medium);
     }
   });
@@ -58,23 +59,32 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
   var medium = req.medium;
-
   medium.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+    console.log(medium);
       res.json(medium);
     }
   });
 };
 
 /**
- * List of Articles
+ * List of Media
  */
 exports.list = function (req, res) {
-  Medium.find().exec(function (err, media) {
+// allow general media by default
+  var allowedUsersArray = [null];
+  // allow user's locations when logged in
+  if (req.user) {
+    allowedUsersArray.push(req.user.id);
+  }
+  Medium.find()
+  .where('user').in(allowedUsersArray)
+  .populate('user', 'displayName username')
+  .exec(function (err, media) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -96,7 +106,9 @@ exports.mediumByID = function (req, res, next, id) {
     });
   }
 
-  Medium.findById(id).exec(function (err, medium) {
+  Medium.findById(id)
+  .populate('user', 'displayName username')
+  .exec(function (err, medium) {
     if (err) {
       return next(err);
     } else if (!medium) {

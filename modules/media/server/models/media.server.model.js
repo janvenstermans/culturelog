@@ -14,7 +14,11 @@ var MediumSchema = new Schema({
     type: String,
     required: 'name cannot be blank'
   },
-  specifications : [String]
+  specifications : [String],
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
 });
 
 mongoose.model('Medium', MediumSchema);
