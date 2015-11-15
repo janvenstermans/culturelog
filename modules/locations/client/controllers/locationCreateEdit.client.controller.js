@@ -5,6 +5,11 @@ angular.module('locations').controller('LocationCreateEditController', ['$scope'
   function ($scope, $stateParams, $location, Authentication, Locations, Geocoder) {
     $scope.authentication = Authentication;
 
+    var isAdmin = $scope.authentication.user.roles.indexOf('admin') > -1;
+    var isUser = $scope.authentication.user.roles.indexOf('user') > -1;
+
+    $scope.onlyGeneral = isAdmin;
+
     // MAP SECTION START
 
     $scope.defaults = {
@@ -36,8 +41,8 @@ angular.module('locations').controller('LocationCreateEditController', ['$scope'
     });
 
     $scope.updateLocationInfo = function(location) {
-       if (location.description && location.description !== null) {
-          Geocoder.findSingleLocation(location.description).then(function(result){
+       if (location.address && location.address !== null) {
+          Geocoder.findSingleLocation(location.address).then(function(result){
               location.lng = result.lng;
               location.lat = result.lat;
               updateMapCenter(location);
@@ -83,6 +88,7 @@ angular.module('locations').controller('LocationCreateEditController', ['$scope'
       // Create new Location object
       var location = new Locations({
         description: $scope.location.description,
+        address: $scope.location.address,
         lat: $scope.location.lat,
         lng: $scope.location.lng,
       });

@@ -5,6 +5,11 @@ angular.module('locations').controller('LocationsController', ['$scope', '$state
   function ($scope, $stateParams, $location, Authentication, Locations, Geocoder) {
     $scope.authentication = Authentication;
 
+    var isAdmin = $scope.authentication.user.roles.indexOf('admin') > -1;
+    var isUser = $scope.authentication.user.roles.indexOf('user') > -1;
+
+    $scope.onlyGeneral = isAdmin;
+
     // MAP SECTION START
 
     $scope.defaults = {
@@ -76,9 +81,25 @@ angular.module('locations').controller('LocationsController', ['$scope', '$state
         locationId: $stateParams.locationId
       }).$promise.then(function(result) {
         $scope.location = result;
+        $scope.isGeneral = isGeneral($scope.location);
+        $scope.canEdit = canEdit($scope.location);
         updateMapCenter(result);
         updateMarkerPosition(result);
       });
     };
+
+    function isGeneral(location) {
+      if (location.user) {
+        return false;
+      }
+      return true;
+    }
+
+    function canEdit(location) {
+      if (isGeneral(location)) {
+        return isAdmin;
+      }
+      return isUser;
+    }
   }
 ]);

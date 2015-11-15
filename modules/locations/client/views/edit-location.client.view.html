@@ -1,23 +1,30 @@
 <section ng-controller="LocationCreateEditController" ng-init="findOne()">
   <div class="page-header">
-    <h1>Edit Location</h1>
+    <h1 ng-show="onlyGeneral">Edit General Location</h1>
+    <h1 ng-show="!onlyGeneral">Edit Personal Location</h1>
   </div>
   <div class="col-md-12">
     <form name="locationForm" novalidate>
       <fieldset class="form-group" show-errors>
         <label for="description">Description</label>
-        <p class="input-group">
-          <input type="text" id="description" name="description" class="form-control"
-                 ng-model="location.description" required>
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="updateLocationInfo(location)" title="geocode the location description">
-              <i class="glyphicon glyphicon-globe"></i>
-            </button>
-          </span>
-        </p>
+        <input type="text" id="description" name="description" class="form-control"
+               ng-model="location.description" required>
         <div ng-messages="locationForm.description.$error" role="alert">
           <p class="help-block error-text" ng-message="required">Location description is required.</p>
         </div>
+      </fieldset>
+
+      <fieldset class="form-group" show-errors>
+        <label for="address">Address</label>
+        <p class="input-group">
+          <input type="text" id="address" name="address" class="form-control"
+                 ng-model="location.address">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="updateLocationInfo(location)" title="geocode the location description">
+            <i class="glyphicon glyphicon-globe"></i>
+          </button>
+        </span>
+        </p>
       </fieldset>
 
       <div class = "form-group">

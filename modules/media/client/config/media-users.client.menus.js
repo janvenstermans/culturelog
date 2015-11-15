@@ -14,12 +14,13 @@ angular.module('media').run(['Menus',
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'media', {
       title: 'List Media',
-      state: 'media.list'
+      state: 'media.list',
+      roles: ['user']
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'media', {
-      title: 'Create Medium',
+      title: 'Create Personal Medium',
       state: 'media.create',
       roles: ['user']
     });

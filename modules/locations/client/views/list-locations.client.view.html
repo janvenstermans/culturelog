@@ -1,6 +1,7 @@
 <section ng-controller="LocationsController" ng-init="find()">
   <div class="page-header">
-    <h1>Locations</h1>
+    <h1 ng-show="onlyGeneral">General Locations</h1>
+    <h1 ng-show="!onlyGeneral">Locations</h1>
   </div>
   <div class="list-group">
     <a ng-repeat="location in locations" ui-sref="locations.view({locationId: location._id})" class="list-group-item">

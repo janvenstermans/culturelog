@@ -1,23 +1,41 @@
 <section ng-controller="LocationsController" ng-init="findOne()">
   <div class="page-header">
-    <h1 ng-bind="location.description"></h1>
+    <h1>Location details</h1>
   </div>
-  <div ng-show="location.user">
-    <div class="pull-right" >
-      <a class="btn btn-primary" ui-sref="locations.edit({locationId: location._id})">
-        <i class="glyphicon glyphicon-edit"></i>
-      </a>
-      <a class="btn btn-primary" ng-click="remove();">
-        <i class="glyphicon glyphicon-trash"></i>
-      </a>
+  <div class="col-md-12">
+    <div ng-show="canEdit" class="row">
+      <div class="pull-right">
+        <a class="btn btn-primary" ui-sref="locations.edit({locationId: location._id})">
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" ng-click="remove();">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
+      <p class="lead"></p>
     </div>
-    <p class="lead"></p>
-    <p>personal location</p>
+
+    <div class="row">
+      <label for="locationDescription">Description</label>
+      <div id="locationDescription"><span ng-bind="location.description" ></span></div>
+    </div>
+
+    <div class="row">
+      <label for="locationScope">Scope</label>
+      <div id="locationScope">
+        <span ng-show="isGeneral">General Location</span>
+        <span ng-show="!isGeneral">Personal Location</span>
+      </div>
+    </div>
+
+    <div class="row" ng-show="location.address">
+      <label for="locationAddress">Address</label>
+      <div id="locationAddress"><span ng-bind="location.address" ></span></div>
+    </div>
+
+    <div class="row" ng-show="hasLngLat(location)">
+      <leaflet lf-center="center" height="480px" markers="markers" defaults="defaults"></leaflet>
+    </div>
   </div>
-  <div ng-show="!location.user">
-    <p>general location</p>
-  </div>
-  <div ng-show="hasLngLat(location)">
-    <leaflet lf-center="center" height="480px" markers="markers" defaults="defaults"></leaflet>
-  </div>
+
 </section>
