@@ -31,21 +31,6 @@ exports.create = function (req, res) {
  */
 exports.read = function (req, res) {
   var location = req.location;
-  // add some security
-  if (location.user) {
-      if (!req.user) {
-          return res.status(401).send({
-            message: 'Not Authenticated.'
-          });
-      }
-
-      if (location.user.id != req.user.id) {
-          return res.status(401).send({
-            message: 'Not Authenticated.'
-          });
-      }
-  }
-
   res.json(location);
 };
 
@@ -54,25 +39,6 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var location = req.location;
-
-  if (!req.user) {
-        return res.status(401).send({
-          message: 'Not Authorized to perform location update.'
-        });
-    }
-
-    if (!location.user) {
-          return res.status(401).send({
-            message: 'General location cannot be updated.'
-          });
-      }
-
-    if (location.user.id != req.user.id) {
-        return res.status(401).send({
-          message: 'Not Authorized to update this location.'
-        });
-    }
-
   location.description = req.body.description;
   location.lng = req.body.lng;
   location.lat = req.body.lat;
@@ -93,25 +59,6 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
   var location = req.location;
-
-  if (!req.user) {
-      return res.status(401).send({
-        message: 'Not Authorized to perform location delete.'
-      });
-  }
-
-  if (!location.user) {
-        return res.status(401).send({
-          message: 'General location cannot be deleted.'
-        });
-    }
-
-  if (location.user.id != req.user.id) {
-      return res.status(401).send({
-        message: 'Not Authorized to delete this location.'
-      });
-  }
-
   location.remove(function (err) {
     if (err) {
       return res.status(400).send({
