@@ -8,6 +8,7 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
+  url = require('url'),
   Experience = mongoose.model('Experience'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
@@ -85,12 +86,35 @@ exports.delete = function (req, res) {
  * List of Experiences
  */
 exports.list = function (req, res) {
-  Experience
+  var url_parts = url.parse(req.url, true);
+  var urlQuery = url_parts.query;
+  var query = Experience
   .find()
   .populate('medium')
   .populate('location')
-  .populate('user', 'displayName username')
-  .exec(function (err, experiences) {
+  .populate('user', 'displayName username');
+  if (urlQuery.media) {
+    query.where('medium').in(urlQuery.media);
+  }
+  if (urlQuery.search) {
+  // select a number of text fields
+    query.$where('this.title.indexOf("' + urlQuery.search + '") > -1');
+    query.$where('this.description.indexOf("' + urlQuery.search + '") > -1');
+    query.$where('this.review.indexOf("' + urlQuery.search + '") > -1');
+  }
+  if (urlQuery.startDate) {
+    var startDate = new Date(parseInt(urlQuery.startDate));
+    startDate.setHours(0, 0, 0, 0);
+    query.where('date').gte(startDate);
+  }
+  if (urlQuery.endDate) {
+      var endDate = new Date(parseInt(urlQuery.endDate));
+      endDate.setHours(0, 0, 0, 0);
+      endDate.setDate(endDate.getDate() + 1);
+      query.where('date').lt(endDate);
+    }
+
+  query.exec(function (err, experiences) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
