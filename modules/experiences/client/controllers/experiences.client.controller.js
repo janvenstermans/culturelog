@@ -98,6 +98,9 @@ angular.module('experiences').controller('ExperiencesController', ['$scope', '$s
     function findExperiences() {
       Experiences.query(getFilterObjectForQuery()).$promise.then(function(experiences) {
         $scope.experiences = experiences;
+        if (!$scope.initialCount) {
+          $scope.initialCount = experiences.length;
+        }
       });
     }
 
