@@ -93,6 +93,9 @@ exports.list = function (req, res) {
   .populate('medium')
   .populate('location')
   .populate('user', 'displayName username');
+  if (req.user.roles.indexOf('admin') < 0) {
+    query.where('user', req.user);
+  }
   if (urlQuery.media) {
     query.where('medium').in(urlQuery.media);
   }
@@ -136,12 +139,15 @@ exports.experienceByID = function (req, res, next, id) {
     });
   }
 
-  Experience
+  var query = Experience
   .findById(id)
   .populate('medium')
   .populate('location')
-  .populate('user', 'displayName username')
-  .exec(function (err, experience) {
+  .populate('user', 'displayName username');
+  if (req.user.roles.indexOf('admin') < 0) {
+      query.where('user', req.user);
+    }
+  query.exec(function (err, experience) {
     if (err) {
       return next(err);
     } else if (!experience) {
