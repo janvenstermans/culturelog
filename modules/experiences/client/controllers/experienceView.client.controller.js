@@ -49,6 +49,7 @@ angular.module('experiences').controller('ExperienceViewController', ['$scope', 
         experienceId: $stateParams.experienceId
       }).$promise.then(function(result) {
         $scope.experience = result;
+        $scope.canEdit = ($scope.authentication.user._id == result.user._id);
       });
     };
   }
