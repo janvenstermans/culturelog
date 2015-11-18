@@ -1,8 +1,9 @@
 'use strict';
 
 // Experiences controller
-angular.module('experiences').controller('ExperiencesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media',
-  function ($scope, $stateParams, $location, Authentication, Experiences, Media) {
+angular.module('experiences').controller('ExperiencesController', ['$scope', '$stateParams', '$location',
+'Authentication', 'Experiences', 'Media', 'leafletBoundsHelpers', 'leafletData',
+  function ($scope, $stateParams, $location, Authentication, Experiences, Media, leafletBoundsHelpers, leafletData) {
     $scope.authentication = Authentication;
 
     // startup
@@ -93,6 +94,87 @@ angular.module('experiences').controller('ExperiencesController', ['$scope', '$s
     // FILTERING END
     //----------------
 
+    //----------------
+    // MAP START
+    //----------------
+
+    $scope.defaults = {
+        scrollWheelZoom: true
+    };
+
+    // map center
+    $scope.center = {};
+//    $scope.bounds = {};
+
+   /* var boundsInitial = leafletBoundsHelpers.createBoundsFromArray([
+                [ 51.050064, 3.7239233 ],
+                [ 51.0503842, 3.7302893 ]
+            ]);
+
+            angular.extend($scope, {
+                bounds: boundsInitial,
+                center: {}
+            });*/
+
+    // one marker only
+    $scope.markers = {};
+
+    // helper functions
+
+    function updateMap() {
+      var markers = [];
+      var bounds;
+      for (var i = 0; i < $scope.experiences.length; i++) {
+        var experience = $scope.experiences[i];
+        if (experience.location && experience.location.lat && experience.location.lng) {
+          var lat = experience.location.lat;
+          var lng = experience.location.lng;
+          markers.push({ lat: lat, lng: lng, draggable: false});
+          if (!bounds) {
+            bounds = [[lat, lng],[lat, lng]];
+          } else {
+            if (lat < bounds[0][0]) {
+              bounds[0][0] = lat;
+            }
+            if (lng < bounds[0][1]) {
+              bounds[0][1] = lng;
+            }
+            if (lat > bounds[1][0]) {
+              bounds[1][0] = lat;
+            }
+            if (lng > bounds[1][1]) {
+              bounds[1][1] = lng;
+            }
+          }
+        }
+      }
+      if (markers.length > 0) {
+         var boundsTemp = leafletBoundsHelpers.createBoundsFromArray(bounds);
+        /*angular.extend($scope, {
+          bounds: boundsTemp
+        });*/
+        $scope.markers = markers;
+        $scope.center = {
+            lat: (bounds[0][0] + bounds[1][0]) / 2,
+            lng: (bounds[0][1] + bounds[1][1]) / 2,
+            zoom: 15
+          };
+//        $scope.bounds = leafletBoundsHelpers.createBoundsFromArray(bounds);
+      } else {
+        $scope.markers = {};
+//        $scope.bounds = {};
+      }
+
+    }
+
+    //----------------
+    // MAP END
+    //----------------
+
+    $scope.selectList = function(item) {
+      $scope.listSelected = item;
+    };
+
     //helper methods
 
     function findExperiences() {
@@ -101,6 +183,7 @@ angular.module('experiences').controller('ExperiencesController', ['$scope', '$s
         if (!$scope.initialCount) {
           $scope.initialCount = experiences.length;
         }
+        updateMap();
       });
     }
 

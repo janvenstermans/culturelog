@@ -1,0 +1,31 @@
+<div>
+<!-- table with sorting and pagination code from:
+   * http://stackoverflow.com/questions/19409492/how-to-achieve-pagination-table-layout-with-angular-js
+   * http://code.ciphertrick.com/2015/06/01/search-sort-and-pagination-ngrepeat-angularjs/-->
+  <table class="table table-striped table-condensed table-hover">
+    <thead>
+    <tr>
+      <th ng-click="sortBy('date')">Date
+        <span class="glyphicon sort-icon" ng-show="sort.sortingKey=='date'"
+              ng-class="{'glyphicon-chevron-up':sort.reverse,'glyphicon-chevron-down':!sort.reverse}"></span>
+      </th>
+      <th ng-click="sortBy('medium.name')">Medium
+        <span class="glyphicon sort-icon" ng-show="sort.sortingKey=='medium.name'"
+              ng-class="{'glyphicon-chevron-up':sort.reverse,'glyphicon-chevron-down':!sort.reverse}"></span>
+      </th>
+      <th ng-click="sortBy('title')">Title
+        <span class="glyphicon sort-icon" ng-show="sort.sortingKey=='title'"
+              ng-class="{'glyphicon-chevron-up':sort.reverse,'glyphicon-chevron-down':!sort.reverse}"></span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="experience in experiences | orderBy:sort.sortingKey:sort.reverse"
+        ui-sref="experiences.view({experienceId: experience._id})">
+      <td>{{experience.date | date : 'dd/MM/yyyy'}}</td>
+      <td>{{experience.medium.name}}</td>
+      <td>{{experience.title}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
