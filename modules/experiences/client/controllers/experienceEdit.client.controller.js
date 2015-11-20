@@ -65,6 +65,7 @@ angular.module('experiences').controller('ExperienceEditController',
         experienceId: $stateParams.experienceId
       }, function(result) {
         $scope.experience = result;
+        $scope.experience.date = Date.parse($scope.experience.date);
         Media.query({},function(media) {
             // for input["select"] of medium: use the exact given medium object
             var medium = $scope.experience.medium;

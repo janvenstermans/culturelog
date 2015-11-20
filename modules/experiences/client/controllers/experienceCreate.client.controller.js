@@ -1,8 +1,9 @@
 'use strict';
 
 // Experience Create controller
-angular.module('experiences').controller('ExperienceCreateController', ['$scope', '$stateParams', '$location', 'Authentication', 'Experiences', 'Media', 'Locations',
-  function ($scope, $stateParams, $location, Authentication, Experiences, Media, Locations) {
+angular.module('experiences').controller('ExperienceCreateController', ['$scope', '$stateParams',
+'$location', 'Authentication', 'Experiences', 'Media', 'Locations', '$modal',
+  function ($scope, $stateParams, $location, Authentication, Experiences, Media, Locations,$modal) {
 
     $scope.authentication = Authentication;
 
@@ -49,6 +50,22 @@ angular.module('experiences').controller('ExperienceCreateController', ['$scope'
     $scope.$watch('newExperience.medium', function(){
       updateSpecificationsTemp();
     });
+
+    $scope.openMap = function () {
+        if($scope.newExperience.location) {
+            var modalInstance = $modal.open({
+              animation: true,
+              templateUrl: 'modules/locations/client/views/locationMap.client.view.html',
+              controller: 'LocationMapController',
+              size: 'lg',
+              resolve: {
+                editable: false,
+                location: $scope.newExperience.location
+              }
+            });
+        }
+      };
+
 
     //DATE methods section start
     $scope.today = function() {

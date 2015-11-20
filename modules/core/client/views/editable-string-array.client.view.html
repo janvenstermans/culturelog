@@ -32,7 +32,7 @@
   <div>
     <p class="input-group">
       <input type="text" id="newValue" name="newValue"  class="form-control"
-             ng-model="newValue" ng-disabled="isEditing()">
+             ng-model="newValue" ng-disabled="isEditing()" on-enter="addValue()">
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="addValue()" ng-disabled="isEditing()">
           <i class="glyphicon glyphicon-plus"></i>

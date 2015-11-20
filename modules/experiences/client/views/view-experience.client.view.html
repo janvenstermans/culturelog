@@ -1,74 +1,72 @@
 <section ng-controller="ExperienceViewController" ng-init="findOne()">
-
-  <div class="col-md-12">
-    <div class="page-header">
-      <h1 ng-bind="experience.title"></h1>
-    </div>
+  <div class="page-header">
+    <h1>Experience details</h1>
   </div>
-
-  <div class="pull-right">
-    <a class="btn btn-primary" ui-sref="experiences.edit({experienceId: experience._id})">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="remove();">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-
   <div class="col-md-12">
-    <label for="medium">Medium</label>
-    <div>
-      <span id="medium" ng-bind="experience.medium.name"></span>
+    <div ng-show="canEdit" class="row">
+      <div class="pull-right">
+        <a class="btn btn-primary" ui-sref="experiences.edit({experienceId: experience._id})">
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" ng-click="remove();">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
+      <p class="lead"></p>
     </div>
-    <div ng-show="experience.specifications && experience.specifications.length > 0">
-      <ul data-ng-repeat="specification in experience.specifications">
-        <li>{{specification.name}}: {{specification.value}}</li>
+
+    <div class="row">
+      <label for="date">Date</label>
+      <div id="date"><span  ng-bind="experience.date | date : 'EEEE d MMMM yyyy'"></span></div>
+    </div>
+
+    <div class="row">
+      <label for="date">Title</label>
+      <div id="title"><span ng-bind="experience.title"></span></div>
+    </div>
+
+    <div class="row">
+      <label for="medium">Medium</label>
+      <div><span id="medium" ng-bind="experience.medium.name"></span></div>
+      <div ng-show="experience.specifications && experience.specifications.length > 0">
+        <ul data-ng-repeat="specification in experience.specifications">
+          <li>{{specification.name}}: {{specification.value}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row" ng-show="experience.location">
+      <label for="location">Location</label>
+      <div>
+        <span id="location" ng-bind="experience.location.description"></span>
+        <button type="button" class="btn btn-default btn-sm" ng-click="openMap()"  ng-show="hasLngLat(experience.location)">
+          <i class="glyphicon glyphicon-map-marker"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="row" ng-show="experience.author && experience.author.length > 0">
+      <label>Author(s)</label>
+      <ul data-ng-repeat="authorItem in experience.author">
+        <li>{{authorItem}}</li>
       </ul>
     </div>
-  </div>
 
-  <div class="col-md-12" ng-show="experience.date">
-    <label for="date">Date</label>
-    <div>
-      <span id="date" ng-bind="experience.date | date : 'EEEE d MMMM yyyy'"></span>
+    <div class="row" ng-show="experience.description">
+      <label for="description">Description</label>
+      <div>
+        <span id="description" ng-bind="experience.description"></span>
+      </div>
     </div>
-  </div>
 
-  <div class="col-md-12" ng-show="experience.location">
-    <label for="location">Location</label>
-    <div>
-      <button type="button" class="btn btn-default btn-sm" ng-click="openMap()"  ng-show="hasLngLat(experience.location)">
-        <i class="glyphicon glyphicon-map-marker"></i>
-      </button>
-      <span id="location" ng-bind="experience.location.description"></span>
+    <div class="row" ng-show="experience.review">
+      <label for="review">Review</label>
+      <div id="review"><span ng-bind="experience.description"></span></div>
     </div>
-  </div>
 
-  <div class="col-md-12" ng-show="experience.author && experience.author.length > 0">
-    <label>Author(s)</label>
-    <ul data-ng-repeat="authorItem in experience.author">
-      <li>{{authorItem}}</li>
-    </ul>
-  </div>
-
-  <div class="col-md-12" ng-show="experience.description">
-    <label for="description">Description</label>
-    <div>
-      <span id="description" ng-bind="experience.description"></span>
-    </div>
-  </div>
-
-  <div class="col-md-12" ng-show="experience.review">
-    <label for="review">Review</label>
-    <div>
-      <span id="review" ng-bind="experience.review"></span>
-    </div>
-  </div>
-
-  <div class="col-md-12" ng-show="experience.rating && experience.rating > 0">
-    <label for="rating">Rating</label>
-    <div>
-      <span id="rating" ng-bind="experience.rating"></span>
+    <div class="row" ng-show="experience.rating && experience.rating > 0">
+      <label for="rating">Rating</label>
+      <div id="rating"><rating ng-model="experience.rating" max="10" readonly="true" ></rating></div>
     </div>
   </div>
 </section>
