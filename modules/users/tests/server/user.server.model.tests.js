@@ -41,9 +41,9 @@ describe('User Model Unit Tests:', function () {
   });
 
   describe('Method Save', function () {
-    it('should begin with no users', function (done) {
+    it('should begin with one admin user', function (done) {
       User.find({}, function (err, users) {
-        users.should.have.length(0);
+        users.should.have.length(1);
         done();
       });
     });
