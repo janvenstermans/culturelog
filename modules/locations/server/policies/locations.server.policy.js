@@ -16,10 +16,10 @@ exports.invokeRolesPolicies = function () {
     roles: ['admin'],
     allows: [{
       resources: '/api/locations',
-      permissions: '*'
+      permissions: ['get', 'post']
     }, {
       resources: '/api/locations/:locationId',
-      permissions: '*'
+      permissions: ['get', 'put', 'delete']
     }]
   }, {
     roles: ['user'],
