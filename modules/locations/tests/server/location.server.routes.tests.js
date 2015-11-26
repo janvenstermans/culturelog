@@ -82,7 +82,6 @@ describe('Location CRUD tests', function () {
     user1.save(function () {
       user2.save(function () {
         admin.save(function(err) {
-        console.log(err);
           locationTest = {
             description: 'Test Description'
           };
@@ -245,7 +244,6 @@ describe('Location CRUD tests', function () {
 
               var locationResult = locationSaveRes.body;
               var locationId = locationResult._id;
-              console.log(locationResult);
               should(locationResult.user).not.be.ok();
 
               // Get a list of articles
