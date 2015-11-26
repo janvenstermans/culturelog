@@ -8,9 +8,8 @@ var path = require('path'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
-
   // add admin user
-  User.where({roles:"admin"}).count(function (err, count) {
+  /*User.where({roles:"admin"}).count(function (err, count) {
     if (count < 1) {
       // add admin user
       var user = new User();
@@ -30,7 +29,7 @@ var path = require('path'),
         }
       });
     }
-  });
+  });*/
 
 /**
  * Show the current user
