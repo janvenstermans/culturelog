@@ -14,12 +14,13 @@
       </div>
       <p class="lead"></p>
     </div>
-    <div class="row">
+
+    <div class="row cl-formRow">
       <label for="mediumName">Name</label>
       <div id="mediumName"><span ng-bind="medium.name" ></span></div>
     </div>
 
-    <div class="row">
+    <div class="row cl-formRow">
       <label for="mediumScope">Scope</label>
       <div id="mediumScope">
         <span ng-show="isGeneral">General medium</span>
@@ -27,7 +28,7 @@
       </div>
     </div>
 
-    <div class="row" ng-show="medium.specifications && medium.specifications.length > 0">
+    <div class="row cl-formRow" ng-show="medium.specifications && medium.specifications.length > 0">
       <label for="mediumSpecifications">Specification keys</label>
       <div id="mediumSpecifications">
         <ul ng-repeat="specification in medium.specifications">

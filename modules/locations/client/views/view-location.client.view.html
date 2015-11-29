@@ -15,12 +15,12 @@
       <p class="lead"></p>
     </div>
 
-    <div class="row">
+    <div class="row cl-formRow">
       <label for="locationDescription">Description</label>
       <div id="locationDescription"><span ng-bind="location.description" ></span></div>
     </div>
 
-    <div class="row">
+    <div class="row cl-formRow">
       <label for="locationScope">Scope</label>
       <div id="locationScope">
         <span ng-show="isGeneral">General Location</span>
@@ -28,12 +28,12 @@
       </div>
     </div>
 
-    <div class="row" ng-show="location.address">
+    <div class="row cl-formRow" ng-show="location.address">
       <label for="locationAddress">Address</label>
       <div id="locationAddress"><span ng-bind="location.address" ></span></div>
     </div>
 
-    <div class="row" ng-show="hasLngLat(location)">
+    <div class="row cl-formRow" ng-show="hasLngLat(location)">
       <leaflet lf-center="center" height="480px" markers="markers" defaults="defaults"></leaflet>
     </div>
   </div>
