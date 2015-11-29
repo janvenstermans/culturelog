@@ -1,8 +1,29 @@
 # CULTURELOG
 
-Culturelog
+## What is it?
+### Keep track of your cultural experiences
 
-## legacy
+Save info of your theater, book, film, ... experiences.
+
+Filter the logged experiences, e.g. to determine your end-of-year top 10!
+
+### Normal workflow
+
+* Create an account.
+* Add personal media to the list of general media.
+* Add personal locations to the list of general media.
+* Add experiences!
+
+### Experiences
+An experience contains
+
+* a date
+* the medium: theater, book, film. Or define your personal media!
+* the title of the theater piece, the book or the concert
+* the location: where did the experience take place?
+* description, review, rating, ...
+
+## Technology
 This project is based on a mean stack (mongo, express, angular, node), specifically MEAN.JS 0.4.2 release (created via yo). For full info see 
 
 * http://meanjs.org/
