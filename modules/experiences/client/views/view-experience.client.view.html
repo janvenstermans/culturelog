@@ -15,17 +15,17 @@
       <p class="lead"></p>
     </div>
 
-    <div class="row">
+    <div class="row cl-formRow">
       <label for="date">Date</label>
       <div id="date"><span  ng-bind="experience.date | date : 'EEEE d MMMM yyyy'"></span></div>
     </div>
 
-    <div class="row">
+    <div class="row cl-formRow">
       <label for="date">Title</label>
       <div id="title"><span ng-bind="experience.title"></span></div>
     </div>
 
-    <div class="row">
+    <div class="row cl-formRow">
       <label for="medium">Medium</label>
       <div><span id="medium" ng-bind="experience.medium.name"></span></div>
       <div ng-show="experience.specifications && experience.specifications.length > 0">
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="row" ng-show="experience.location">
+    <div class="row cl-formRow" ng-show="experience.location">
       <label for="location">Location</label>
       <div>
         <span id="location" ng-bind="experience.location.description"></span>
@@ -45,26 +45,26 @@
       </div>
     </div>
 
-    <div class="row" ng-show="experience.author && experience.author.length > 0">
+    <div class="row cl-formRow" ng-show="experience.author && experience.author.length > 0">
       <label>Author(s)</label>
       <ul data-ng-repeat="authorItem in experience.author">
         <li>{{authorItem}}</li>
       </ul>
     </div>
 
-    <div class="row" ng-show="experience.description">
+    <div class="row cl-formRow" ng-show="experience.description">
       <label for="description">Description</label>
       <div>
         <span id="description" ng-bind="experience.description"></span>
       </div>
     </div>
 
-    <div class="row" ng-show="experience.review">
+    <div class="row cl-formRow" ng-show="experience.review">
       <label for="review">Review</label>
-      <div id="review"><span ng-bind="experience.description"></span></div>
+      <div id="review"><span ng-bind="experience.review"></span></div>
     </div>
 
-    <div class="row" ng-show="experience.rating && experience.rating > 0">
+    <div class="row cl-formRow" ng-show="experience.rating && experience.rating > 0">
       <label for="rating">Rating</label>
       <div id="rating"><rating ng-model="experience.rating" max="10" readonly="true" ></rating></div>
     </div>

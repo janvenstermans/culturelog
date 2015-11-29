@@ -35,11 +35,6 @@ angular.module('experiences').controller('ExperienceEditController',
         for (var i = 0; i < $scope.specificationsTemp.length; i++) {
             var specTemp = $scope.specificationsTemp[i];
             var existingIndex = getExistingIndex(experience.specifications, specTemp.name);
-            for (var j = 0; j < experience.specifications.length; j++) {
-                if (experience.specifications[j].name == specTemp.name) {
-                    existingIndex = j;
-                }
-            }
             if (specTemp.value && specTemp.value != null) {
                 if (existingIndex !== null) {
                     experience.specifications[existingIndex].value = specTemp.value;
@@ -146,6 +141,9 @@ angular.module('experiences').controller('ExperienceEditController',
      * returns an index integer or null;
      */
      function getExistingIndex(specArray, specName) {
+        if (!specArray) {
+            return null;
+        }
          for (var j = 0; j < specArray.length; j++) {
              if (specArray[j].name == specName) {
                  return j;

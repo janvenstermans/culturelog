@@ -6,7 +6,7 @@ module.exports = {
       css: [
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-        'public/css/leaflet-0-7-7/leaflet.css'
+        'public/lib/leaflet/dist/leaflet.css'
       ],
       js: [
         'public/lib/angular/angular.js',
@@ -23,7 +23,8 @@ module.exports = {
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
     css: [
-      'modules/*/client/css/*.css'
+      'modules/*/client/css/*.css',
+      'public/css/**/*.css'
     ],
     less: [
       'modules/*/client/less/*.less'
