@@ -34,7 +34,8 @@ MEAN.JS is a full-stack JavaScript open-source solution, which provides a solid 
 ## Prerequisites
 
 * Install Node.js, MongoDB, Bower, Grunt
-* run the mongod server on the default port (27017).
+* run the mongod server on the default port (27017). ("mongod [--dbpath ...]")
+* execute npm install and bower install
 
 ## Running the Application
 Locally running the application is easy: just run
